@@ -1,12 +1,17 @@
 import PyPDF2
 import pyttsx3
 
-book = open("CTCI.pdf", "rb")
-pdfReader = PyPDF2.PdfReader(book)
-pages = len(pdfReader.pages)
-print(pages)
+book = open("CTCI.pdf", "rb") # Open the book ("bookName.pdf", "rb")
+pdfReader = PyPDF2.PdfReader(book) 
+
  
 engine = pyttsx3.init()
+engine.setProperty('rate', 180)    # Speed percent (can go over 100)
+engine.setProperty('volume', 0.9)  # Volume 0-1
 
-engine.say("Hello World")
-engine.runAndWait()
+for num in range(100, 200): # Set the Page number to be read (startPage, endPage)
+    page = pdfReader.pages[num] # Get the page
+    text = page.extract_text() 
+
+    engine.say(text) 
+    engine.runAndWait()
